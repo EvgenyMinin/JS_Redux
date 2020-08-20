@@ -1,4 +1,10 @@
-import { INCREMENT, DECREMENT, CHANGE_THEME } from "./types";
+import {
+  INCREMENT,
+  DECREMENT,
+  CHANGE_THEME,
+  DISABLE_BUTTONS,
+  ENABLE_BUTTONS,
+} from "./types";
 
 export function increment() {
   return {
@@ -14,8 +20,10 @@ export function decrement() {
 
 export function asyncIncrement() {
   return function (dispatch) {
+    dispatch(disableButtons());
     setTimeout(() => {
       dispatch({ type: INCREMENT });
+      dispatch(enableButtons());
     }, 2000);
   };
 }
@@ -24,5 +32,17 @@ export function changeTheme(newTheme) {
   return {
     type: CHANGE_THEME,
     payload: newTheme,
+  };
+}
+
+export function disableButtons() {
+  return {
+    type: DISABLE_BUTTONS,
+  };
+}
+
+export function enableButtons() {
+  return {
+    type: ENABLE_BUTTONS,
   };
 }
