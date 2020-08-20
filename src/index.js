@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
+import { composeWithDevTools } from "redux-devtools-extension";
+
 import { rootReducer } from "./redux/rootReducer";
 import {
   increment,
@@ -16,7 +18,10 @@ const subBtn = document.getElementById("sub");
 const asyncBtn = document.getElementById("async");
 const themeBtn = document.getElementById("theme");
 
-const store = createStore(rootReducer, applyMiddleware(thunk, logger));
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk, logger))
+);
 
 addBtn.addEventListener("click", () => {
   store.dispatch(increment());
